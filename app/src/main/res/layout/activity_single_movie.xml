@@ -38,7 +38,7 @@
                 android:id="@+id/linearLayout">
 
                 <ImageView
-                    android:id="@+id/movie_poster"
+                    android:id="@+id/iv_movie_poster"
                     android:layout_width="match_parent"
                     android:layout_height="500dp"
                     android:layout_gravity="center"

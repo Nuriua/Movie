@@ -1,4 +1,4 @@
-package com.selva.movie.ui
+package com.selva.movie.ui.popular_movie
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
