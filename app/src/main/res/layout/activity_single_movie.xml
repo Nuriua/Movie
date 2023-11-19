@@ -19,7 +19,7 @@
             android:visibility="gone"/>
 
         <TextView
-            android:id="@+id/text_error"
+            android:id="@+id/txt_error"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"

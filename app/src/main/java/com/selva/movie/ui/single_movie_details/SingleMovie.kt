@@ -13,7 +13,10 @@ import com.selva.movie.data.api.POSTER_BASE_URL
 import com.selva.movie.data.api.TheMovieDBClient
 import com.selva.movie.data.api.TheMovieDBInterface
 import com.selva.movie.data.repository.NetworkState
+import com.selva.movie.data.repository.Status
 import com.selva.movie.data.vobject.MovieDetails
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_single_movie.*
 import java.text.NumberFormat
 import java.util.Locale
 
@@ -34,23 +37,24 @@ class SingleMovie : AppCompatActivity() {
             bindUI(it)
         })
 
-        viewModel.networkState.observe(this, Observer{
-            progress_bar.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
-            txt.error.visibility = if (it == NetworkState.ERROR) View.VISIBLE else View.GONE
+        viewModel.networkState.observe(this, Observer {
+            progress_bar_popular.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            txt_error.visibility = if (it.status == Status.FAILED) View.VISIBLE else View.GONE
+
         })
     }
 
     fun bindUI(it: MovieDetails){
+        val formatCurrency = NumberFormat.getCurrencyInstance(Locale.US)
+
         movie_title.text = it.title
         movie_tagline.text = it.tagline
         movie_release_date.text = it.releaseDate
         movie_rating.text = it.rating.toString()
-        movie_runtime.text = it.runtime.toString() + "minutes"
-        movie_overview.text = it.overview
-
-        val formatCurrency: NumberFormat! = NumberFormat.getCurrencyInstance(Locale.US)
+        movie_runtime.text = it.runtime.toString() + " minutes"
         movie_budget.text = formatCurrency.format(it.budget)
         movie_revenue.text = formatCurrency.format(it.revenue)
+        movie_overview.text = it.overview
 
         val moviePosterURL: String = POSTER_BASE_URL + it.posterPath
         Glide.with(this)
